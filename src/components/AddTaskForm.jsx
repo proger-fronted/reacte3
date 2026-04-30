@@ -1,0 +1,17 @@
+import Field from './Field'
+import Button from './Button'
+
+const AddTaskForm = () => {
+  return (
+    <form className="todo__form">
+      <Field
+          className="todo__field"
+          label="New Task title"
+          id="new-task"
+      />
+     <Button>Add</Button>
+    </form>
+  )
+}
+
+export default AddTaskForm

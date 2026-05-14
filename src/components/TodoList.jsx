@@ -1,18 +1,21 @@
-import TodoItem from './TodoItem'
+import TodoItem from "./TodoItem";
+import {memo, useContext} from "react";
+import {TasksContext} from "../context/TasksContext";
+const TodoList = () => {
+    const {
+        tasks,
+       filteredTasks,
+    } = useContext(TasksContext);
 
-const TodoList = (props) => {
-    const {tasks = [],
-    onDeleteTaskButtonClick,
-    onTaskCompleteChange,
-    filteredTasks} = props
     const hasTasks = tasks.length > 0
-    const isEmptyFilteredTasks = filteredTasks?.length ==0
+    const isEmptyFilteredTasks = filteredTasks?.length === 0
 
     if (!hasTasks) {
-        return <div className="todo__empty-message">No task</div>
+        return <div className="todo__empty-message">There are no tasks yet</div>
     }
-    if(hasTasks && isEmptyFilteredTasks) {
-        return <div className="todo__empty-message">Tasks not found </div>
+
+    if (hasTasks && isEmptyFilteredTasks) {
+        return <div className="todo__empty-message">Tasks not found</div>
     }
 
     return (
@@ -21,15 +24,13 @@ const TodoList = (props) => {
                 <TodoItem
                     className="todo__item"
                     key={task.id}
-                    id={task.id}
-                    title={task.title}
-                    onDeleteTaskbuttonClick={onDeleteTaskButtonClick}
-                    isDone={task.isDone}
-                    onTaskCompleteChange={onTaskCompleteChange}
+
+
+                    {...task}
                 />
             ))}
         </ul>
     )
 }
 
-export default TodoList;
+export default memo(TodoList)
